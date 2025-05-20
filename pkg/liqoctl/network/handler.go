@@ -260,14 +260,14 @@ func (o *Options) RunConnect(ctx context.Context) error {
 		// Wait for Connections on both cluster cluster to be established
 		gwEndpoint := gwServer.Status.Endpoint
 		if err := cluster1.waiter.ForConnectionEstablished(ctx, conn1); err != nil {
-			for _, address := range gwEndpoint.Addresses {
-				o.LocalFactory.PrinterGlobal.Error.Printfln("Connection failed: Provider on cluster %v unreachable on %v://%v:%v", gwServer.Name, *gwEndpoint.Protocol, address, gwEndpoint.Port)
+			for _, address := range gwClient.Spec.Endpoint.Addresses {
+				o.LocalFactory.PrinterGlobal.Error.Printfln("Connection failed: Consumer on cluster %v unreachable on %v://%v:%v", gwClient.Name, *gwEndpoint.Protocol, address, gwEndpoint.Port)
 			}
 			return err
 		}
 		if err := cluster2.waiter.ForConnectionEstablished(ctx, conn2); err != nil {
-			for _, address := range gwEndpoint.Addresses {
-				o.LocalFactory.PrinterGlobal.Error.Printfln("Connection failed: Consumer on cluster %v unreachable on %v://%v:%v", gwServer.Name, *gwEndpoint.Protocol, address, gwEndpoint.Port)
+			for _, address := range gwClient.Spec.Endpoint.Addresses {
+				o.LocalFactory.PrinterGlobal.Error.Printfln("Connection failed: Provider on cluster %v unreachable on %v://%v:%v", gwServer.Name, *gwEndpoint.Protocol, address, gwEndpoint.Port)
 			}
 			return err
 		}
