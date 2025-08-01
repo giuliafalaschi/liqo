@@ -12,5 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package utils contains utility functions for the networking module.
-package utils //nolint:revive // we want to use this package name
+package resource
+
+import (
+	"testing"
+
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+)
+
+func TestUtils(t *testing.T) {
+	defer GinkgoRecover()
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "Test Resource Utils")
+}
